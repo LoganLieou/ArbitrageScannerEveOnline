@@ -1,17 +1,14 @@
 import requests
 from collections import defaultdict
 
-default_system = "10000002"
-system_id = input("Enter system id or 'None'")
-if system_id == "None":
-    system_id = default_system
-
-res = requests.get(f"https://esi.evetech.net/latest/markets/{system_id}/orders/?datasource=tranquility&order_type=all&page=1")
+res = requests.get(f"https://esi.evetech.net/dev/markets/10000002/orders/?datasource=tranquility&order_type=all&page=1")
 
 order_ranks = defaultdict(list)
 volume_lookup = {}
 
 for order in res.json():
+    if order is None:
+        continue
     order_ranks[order['type_id']].append(order['price'])
     volume_lookup[order['type_id']] = order['volume_remain']
 
