@@ -1,3 +1,4 @@
 (executable
   (name main)
-  (libraries jsonaf))
+  (modules data main)
+  (libraries cohttp-lwt-unix cohttp lwt yojson))
